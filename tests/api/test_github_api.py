@@ -13,11 +13,11 @@ def test_user_non_exists(github_api):
     assert r["message"] == "Not Found"
 
 
-# @pytest.mark.api
-# def test_repo_can_be_found(github_api):
-#    r = github_api.search_repo("become-qa-auto")
-#    assert r["total_count"] == 58
-#    assert "become-qa-auto" in r["items"][0]["name"]
+@pytest.mark.api
+def test_repo_can_be_found(github_api):
+    r = github_api.search_repo("become-qa-auto")
+    assert r["total_count"] == 58
+    assert "become-qa-auto" in r["items"][0]["name"]
 
 
 @pytest.mark.api
@@ -43,8 +43,8 @@ ref = "a127aaa5da5974f4a1f51c9bc03909e24327f097"
 
 
 @pytest.mark.api
-def test_owner_can_be_found(github_api):
-    r = github_api.get_commit(owner, repo, ref)
+def test_owner_can_be_found(github_api_client):
+    r = github_api_client.get_commit(owner, repo, ref)
     assert r["author"]["login"] == "OksanaPavlenko1"
 
 
