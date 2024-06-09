@@ -59,3 +59,41 @@ class Database:
         self.cursor.execute(query)
         record = self.cursor.fetchall()
         return record
+
+    # Individual part of the project task"
+
+    def get_all_products_name(self):
+        query = "SELECT name FROM products"
+        self.cursor.execute(query)
+        record = self.cursor.fetchall()
+        return record
+
+    def get__product_quantity_by_name(self, name):
+        query = f"SELECT quantity FROM products WHERE name = '{name}'"
+        self.cursor.execute(query)
+        record = self.cursor.fetchall()
+        return record
+
+    def insert_customer(self, customer_id, name, address, city, postal_code, country):
+        query = f"INSERT OR REPLACE INTO customers (id, name, address, city,\
+                postalCode, country)\
+                VALUES ({customer_id},'{name}','{address}','{city}','{postal_code}','{country}')"
+        self.cursor.execute(query)
+        self.connection.commit()
+
+    def select_customer_by_id(self, customer_id):
+        query = f"SELECT name, address, city, postalCode,country FROM customers WHERE id={customer_id}"
+        self.cursor.execute(query)
+        record = self.cursor.fetchall()
+        return record
+
+    def update_customer_name_by_id(self, customer_id, name):
+        query = f"UPDATE customers SET name='{name}' WHERE id={customer_id}"
+        self.cursor.execute(query)
+        self.connection.commit()
+
+    def select_customer(self, customer_id):
+        query = f"SELECT name FROM customers WHERE id={customer_id}"
+        self.cursor.execute(query)
+        record = self.cursor.fetchall()
+        return record

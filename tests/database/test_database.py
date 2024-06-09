@@ -68,3 +68,52 @@ def test_detailed_orders():
     assert orders[0][1] == "Sergii"
     assert orders[0][2] == "солодка вода"
     assert orders[0][3] == "з цукром"
+
+
+# Individual part of project task"
+
+
+@pytest.mark.database
+def test_check_all_products():
+    db = Database()
+    products = db.get_all_products_name()
+
+    print(products)
+
+
+@pytest.mark.database
+def test_check_product_quantity():
+    db = Database()
+    product = db.get__product_quantity_by_name("молоко")
+
+    assert product[0][0] == 10
+
+
+@pytest.mark.database
+def test_check_product_by_nonexists_name():
+    db = Database()
+    product = db.get__product_quantity_by_name("кефір")
+
+    assert len(product) == 0
+
+
+@pytest.mark.database
+def test_customer_insert():
+    db = Database()
+    db.insert_customer(3, "Oksana", "Dokivska", "Kyiv", "1111", "Ukraine")
+    cust = db.select_customer_by_id(3)
+
+    assert cust[0][0] == "Oksana"
+    assert cust[0][1] == "Dokivska"
+    assert cust[0][2] == "Kyiv"
+    assert cust[0][3] == "1111"
+    assert cust[0][4] == "Ukraine"
+
+
+@pytest.mark.database
+def test_name_update():
+    db = Database()
+    db.update_customer_name_by_id(3, "Olena")
+    new_name = db.select_customer_by_id(3)
+
+    assert new_name[0][0] == "Olena"
